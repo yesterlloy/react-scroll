@@ -46,9 +46,9 @@ const scrollSpy = {
     }
   },
 
-  scrollHandler(scrollSpyContainer) {
+  scrollHandler(scrollSpyContainer, clickTarget) {
     let callbacks = scrollSpy.scrollSpyContainers[scrollSpy.scrollSpyContainers.indexOf(scrollSpyContainer)].spyCallbacks || [];
-    callbacks.forEach(c => c(scrollSpy.currentPositionX(scrollSpyContainer), scrollSpy.currentPositionY(scrollSpyContainer)));
+    callbacks.forEach(c => c(scrollSpy.currentPositionX(scrollSpyContainer), scrollSpy.currentPositionY(scrollSpyContainer), clickTarget));
   },
 
   addStateHandler(handler) {

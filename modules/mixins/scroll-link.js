@@ -29,14 +29,14 @@ const protoTypes = {
 };
 
 export default (Component, customScroller) => {
-
   const scroller = customScroller || defaultScroller;
 
   class Link extends React.PureComponent {
     constructor(props) {
       super(props);
       this.state = {
-        active: false
+        active: false,
+        clicked: false
       };
     }
 
@@ -45,6 +45,7 @@ export default (Component, customScroller) => {
     }
 
     handleClick = (event) => {
+      this.setState({ clicked: true })
 
       /*
        * give the posibility to override onClick
@@ -65,10 +66,14 @@ export default (Component, customScroller) => {
        * do the magic!
        */
       this.scrollTo(this.props.to, this.props);
-
+      setTimeout(() => {
+        let scrollSpyContainer = this.getScrollSpyContainer();
+        scrollSpy.scrollHandler(scrollSpyContainer, this.props.to)
+      }, this.props.duration ? this.props.duration * 2 : 400)
     }
 
-    spyHandler = (x, y) => {
+    spyHandler = (x, y, clickTarget) => {
+      const { clicked } = this.state
       let scrollSpyContainer = this.getScrollSpyContainer();
 
       if (scrollHash.isMounted() && !scrollHash.isInitialized()) {
@@ -115,7 +120,9 @@ export default (Component, customScroller) => {
 
         if (!element || this.props.isDynamic) {
           element = scroller.get(to);
-          if (!element) { return; }
+          if (!element) { 
+            return; 
+          }
 
           let cords = element.getBoundingClientRect();
           elemTopBound = (cords.top - containerTop + y);
@@ -128,6 +135,15 @@ export default (Component, customScroller) => {
       }
 
       let activeLink = scroller.getActiveLink();
+      if(clickTarget ) {
+        isInside = false
+        isOutside = true
+        if(clickTarget === this.props.to) {
+          isInside = true
+          isOutside = false
+        }
+      }
+      
 
       if (isOutside) {
         if (to === activeLink) {
@@ -156,6 +172,7 @@ export default (Component, customScroller) => {
           this.props.onSetActive && this.props.onSetActive(to, element);
         }
       }
+      
     }
 
     getScrollSpyContainer() {

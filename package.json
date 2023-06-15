@@ -1,25 +1,29 @@
 {
-  "name": "react-scroll",
-  "version": "1.8.9",
+  "name": "@yester/react-scroll",
+  "version": "1.8.11",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A scroll component for React.js",
   "main": "modules",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fisshy/react-scroll.git"
+    "url": "git+https://github.com/yesterlloy/react-scroll.git"
   },
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --no-info --content-base examples",
     "build": "babel modules -d build/npm/modules --ignore '**/__tests__/**' --plugins transform-class-properties && gulp",
     "clean": "rm -rf build/npm/modules",
     "test": "karma start",
-    "start": "npm run examples"
+    "start": "npm run examples",
+    "pub": "cd build/npm && npm publish"
   },
-  "homepage": "https://github.com/fisshy/react-scroll",
+  "homepage": "https://github.com/yesterlloy/react-scroll",
   "bugs": {
-    "url": "https://github.com/fisshy/react-scroll/issues"
+    "url": "https://github.com/yesterlloy/react-scroll/issues"
   },
   "authors": [
-    "Joachim Karlsson"
+    "yesterlloy"
   ],
   "license": "MIT",
   "tags": [

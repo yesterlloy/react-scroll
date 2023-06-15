@@ -2,6 +2,8 @@
 
 <p align='center'>React component for animating vertical scrolling
 
+### active the right click Link when clicked 
+
 ### Install
 
 ```js
